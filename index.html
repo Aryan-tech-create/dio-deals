@@ -56,8 +56,8 @@ $('categories').addEventListener('click',e=>{let b=e.target.closest('[data-categ
 $('deals').addEventListener('click',e=>{let s=e.target.closest('[data-save]');if(s){let id=s.dataset.save;if(state.saved.has(id))state.saved.delete(id);else state.saved.add(id);saveState();render();}});
 $('deals').addEventListener('click',e=>{let a=e.target.closest('[data-outbound]');if(a){localStorage.setItem('dio-local-clicks',String(clickCount()+1));$('clicks').textContent=clickCount();}});
 $('savedBtn').addEventListener('click',()=>{state.onlySaved=!state.onlySaved;state.category='All';document.querySelectorAll('[data-category]').forEach(b=>b.classList.toggle('active',b.dataset.category==='All'));render();});
-$('ownerBtn').addEventListener('click',()=>{$('shop').classList.add('hidden');$('owner').classList.remove('hidden');$('clicks').textContent=clickCount();$('savedMetric').textContent=state.saved.size;});
-$('back').addEventListener('click',()=>{$('owner').classList.add('hidden');$('shop').classList.remove('hidden');});
+$('ownerBtn').addEventListener('click',()=>{Array.from($('shop').children).forEach(node=>{if(node.id==='owner')node.classList.remove('hidden');else node.classList.add('hidden');});$('clicks').textContent=clickCount();$('savedMetric').textContent=state.saved.size;});
+$('back').addEventListener('click',()=>{Array.from($('shop').children).forEach(node=>node.classList.remove('hidden'));$('owner').classList.add('hidden');});
 saveState();load();timer=setInterval(load,300000);
 })();
 </script>
